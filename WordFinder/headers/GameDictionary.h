@@ -1,15 +1,18 @@
 /* 
  * Author: Cameron Cipriano
- * Date: 12/28/2018
+ * Date: 1/12/2019
  * Description:
- *      
+ *      The GameDictionary is responsible for constructing the dictionary to be used in
+ *      validating the words found by the BoggleGame class. This class performs the function
+ *      of placing each valid word provided by a text file in a HashMap's bucket based on a
+ *      key determined by the minimum word length.
  *
  */
 
 #ifndef GAMEDICTIONARY_H
 #define GAMEDICTIONARY_H
 
-#include <unordered_map> // HashMap Equivalent that uses chaining as its collision resolving method
+#include <unordered_map>
 #include <string>
 #include <cstdbool>
 #include <iostream>
@@ -25,8 +28,8 @@ class GameDictionary {
         size_t minWordLen;
         size_t maxWordLen;
         string dictPath;
-        ifstream dictFile; // text file for the dictionary
-        unordered_multimap<string, string> dict; // HashMap for the words
+        ifstream dictFile;
+        unordered_multimap<string, string> dict;
         void generateDict();
         bool canBeAdded(string wordToCheck);
 };

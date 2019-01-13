@@ -1,8 +1,8 @@
 /* 
  * Author: Cameron Cipriano
- * Date: 12/28/2018
+ * Date: 1/12/2019
  * Description:
- *      
+ *      See header file
  *
  */
 
@@ -11,12 +11,15 @@
 #include <string>
 #include <iostream>
 #include <fstream>
-
-// My headers
 #include "../headers/GameDictionary.h"
 
 using namespace std;
 
+/*
+ * @param _minWordLen: Minimum word length for valid words
+ * @param _maxWordLen: Maximum word length for valid words
+ * @param _dictPath: String path to the dictionary text file
+ */
 GameDictionary::GameDictionary(size_t _minWordLen, size_t _maxWordLen, string _dictPath) {
     minWordLen = _minWordLen;
     maxWordLen = _maxWordLen;
@@ -28,26 +31,25 @@ GameDictionary::GameDictionary(size_t _minWordLen, size_t _maxWordLen, string _d
  * Filters dicitionary for words shorter than indicated minWordLen and ensures proper longest lengths
  * 
  * @param wordToCheck: input word to determine if it can be added to the game's dictionary
- * 
  */
 bool GameDictionary::canBeAdded(string wordToCheck) {
     return (wordToCheck.substr(0, minWordLen).length() >= minWordLen && wordToCheck.length() <= maxWordLen);
 }
 
 /*
- * Purpose of this method is to search the dictionary for a given word
+ * Searches the finalized dictionary for the provided word
  * 
  * @param wordToGet: string to search the dictionary for
- *  
  */
 bool GameDictionary::isValid(string wordToGet) {
     string currKey = wordToGet.substr(0, minWordLen);
 
     unordered_map<string, string>::iterator wordIt = dict.find(currKey);
-    if (wordIt == dict.end()) {
+    if (wordIt == dict.end()) { // the key was not found in the dictionary, indicating it does not exist
         return false;
     }
     else {
+        // because the dictionary is a HashTable, we can further improve search speeds by restricting the search to the bucket with the same key
         while(wordIt->first.compare(currKey.c_str()) == 0) {
             if (wordIt->second.compare(wordToGet.c_str()) == 0) {
                 return true;
@@ -57,7 +59,7 @@ bool GameDictionary::isValid(string wordToGet) {
             }
         }
     }
-    return false;
+    return false; // the word was not found in its key's bucket
 }
 
 /*

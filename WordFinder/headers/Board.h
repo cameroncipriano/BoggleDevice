@@ -1,7 +1,10 @@
 /* 
  * Author: Cameron Cipriano
- * Date: 12/28/2018
+ * Date: 1/12/2019
  * Description:
+ *      The board is responsible for holding all of the game's Tiles. The board is essentially
+ *      a container that allows everything to be put in one place for easy access for the main
+ *      algorithm.
  *
  */
 
@@ -12,15 +15,13 @@
 #include <string>
 #include <iostream>
 #include <cstdbool>
-
-// My headers
 #include "Tile.h"
 
 using namespace std;
 
 class Board {
     public:
-        Board(ssize_t _size, size_t _minWordLen, string gameLetters);
+        Board(ssize_t _size, size_t _minWordLen, string _gameLetters);
         ~Board();
         ssize_t getSize() const;
         size_t getMinLength() const;

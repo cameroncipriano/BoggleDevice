@@ -2,8 +2,9 @@
  * Author: Cameron Cipriano
  * Date: 12/28/2018
  * Description:
- *      Overrides the insertion operator for Locations so that they may be printed
- *      for testing/debugging purposes.
+ *      The Tile is the backbone for this BoggleSolver as it encapsulates all of the data needed
+ *      for the main program to find words and generate paths to recreate them. The Tile has the
+ *      letter and location that it represents on the board.
  *
  */
 

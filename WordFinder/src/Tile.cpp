@@ -1,17 +1,14 @@
 /* 
  * Author: Cameron Cipriano
- * Date: 12/28/2018
+ * Date: 1/12/2019
  * Description:
- *      Overrides the insertion operator for Locations so that they may be printed
- *      for testing/debugging purposes.
+ *      See header file
  *
  */
 
 #include <cstdlib>
 #include <string>
 #include <cstdbool>
-
-// My headers
 #include "../headers/Tile.h"
 
 using namespace std;
@@ -20,6 +17,9 @@ using namespace std;
 /*          Tile Specific             */
 /**************************************/
 
+/*
+ * Default configuration for a tile
+ */
 Tile::Tile() {
     letter = ' ';
     size = 0;
@@ -27,6 +27,15 @@ Tile::Tile() {
     boardLoc = NULL;
 }
 
+/*
+ * Creates tile with all information known
+ * 
+ * @param _letter: The character on the board
+ * @param _size: The size of the tile in the digital game: needed for device accuracy
+ * @param _boardRow: Vertical location on the board the Tile will go
+ * @param _boardCol: Horizontal location on the board the Tile will go
+ * @param _visisted: indicates if this tile is currently being considered for a word
+ */
 Tile::Tile(char _letter, size_t _size, ssize_t _boardRow, ssize_t _boardCol, bool _visited) {
     letter = tolower(_letter);
     size = _size;
@@ -42,18 +51,30 @@ Tile::~Tile() {
     boardLoc = NULL;
 }
 
+/*
+ * @return: the letter associated with the current tile
+ */
 char Tile::getLetter() const {
     return letter;
 }
 
+/*
+ * @return: pointer to the location associated with the current tile
+ */
 Tile::Location* Tile::getLocation() const {
     return boardLoc;
 }
 
+/*
+ * @return: true if the current tile is being considered for a path
+ */
 bool Tile::isVisited() {
     return visited;
 }
 
+/*
+ * @param status: true or false depending on if the current tile is being considered for a path
+ */
 void Tile::setVisited(bool status) {
     visited = status;
 }
@@ -62,16 +83,22 @@ void Tile::setVisited(bool status) {
 /*          Tile Location             */
 /**************************************/
 
+/*
+ * @param rowPos: Vertical position on the board
+ * @param colPos: Horizontal position on the board
+ */
 Tile::Location::Location(ssize_t rowPos, ssize_t colPos) {
     row = rowPos;
     col = colPos;
 }
 
+/*
+ * @param oldLoc: this is for copying purposes of creating a new tile with the same values
+ */
 Tile::Location::Location(Tile::Location* oldLoc) {
     row = oldLoc->row;
     col = oldLoc->col;
 }
-
 
 /**************************************/
 /*     Testing Purpose Printing       */

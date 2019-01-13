@@ -1,7 +1,10 @@
 /* 
  * Author: Cameron Cipriano
- * Date: 12/28/2018
+ * Date: 1/12/2019
  * Description:
+ *      BoggleGame is the class that encapsulates everything needed to run the main program.
+ *      This class is responsible for finding every word in the board and generating each
+ *      path required for the physical device to find them.
  *
  */
 
@@ -12,8 +15,6 @@
 #include <memory>
 #include <vector>
 #include <unordered_map>
-
-// My headers
 #include "Board.h"
 #include "GameDictionary.h"
 #include "Word.h"

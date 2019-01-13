@@ -1,3 +1,11 @@
+/* 
+ * Author: Cameron Cipriano
+ * Date: 1/12/2019
+ * Description:
+ *      This is a secondary file that simply filters a given text file by making each word lowercase and removing
+ *      any words that have some form of punctuation/number in them being that these are not possible.
+ */
+
 #include <cstdlib>
 #include <string>
 #include <iostream>

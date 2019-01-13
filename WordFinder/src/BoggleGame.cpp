@@ -1,8 +1,8 @@
 /* 
  * Author: Cameron Cipriano
- * Date: 12/28/2018
+ * Date: 1/12/2019
  * Description:
- *
+ *      See header file
  */
 
 #include <cstdlib>
@@ -10,8 +10,6 @@
 #include <vector>
 #include <iostream>
 #include <unordered_map>
-
-// My headers
 #include "../headers/BoggleGame.h"
 #include "../headers/Board.h"
 #include "../headers/GameDictionary.h"
@@ -66,23 +64,25 @@ BoggleGame::~BoggleGame() {
     }
 }
 
+/*
+ *  @return: number of total possible words in the board
+ */
 size_t BoggleGame::getTotalWords() {
     return numAnswers;
 }
 
 /*
- * Does the heavy lifting in terms of finding the words and adding each to the final
- * word/pathList
+ * Takes each Tile on the Board as a starting point for a path. The algorithm finds all possible
+ * words that begin with that letter
  */
 void BoggleGame::solve() {
     Word* currWordPath = new Word();
-    // each tile on the board acts as a starting point for a path
     ssize_t gameBoardSize = gameBoard->getSize();
     for (ssize_t row = 0; row < gameBoardSize; row++) {
         for (ssize_t col = 0; col < gameBoardSize; col++) {
             Tile* currTile = gameBoard->getTile(row, col);
             cout << "Starting new path from Tile \"" << currTile->getLetter() << "\" at " << *(currTile->getLocation()) << "\n"; 
-            solveRec(currWordPath, row, col);
+            solveRec(currWordPath, row, col); // main algorithm
         }
     }
     delete currWordPath;
@@ -102,6 +102,13 @@ void BoggleGame::solve() {
     cout.flush();
 }
 
+/*
+ * Main algorithm for the game, recursively looking for words
+ * 
+ * @param thisWordPath: Current word to be checked in the dictionary provided its length is >= the minimum word length
+ * @param row: vertical location on the board
+ * @param col: horizontal location on the board
+ */
 void BoggleGame::solveRec(Word* thisWordPath, ssize_t row, ssize_t col) {
     Tile* currTile = gameBoard->getTile(row, col);
 
@@ -111,7 +118,7 @@ void BoggleGame::solveRec(Word* thisWordPath, ssize_t row, ssize_t col) {
     thisWordPath->addTile(currTile);
 
     string currWord = thisWordPath->getText();
-    if (thisWordPath->length() >= minWordLen) {
+    if (thisWordPath->length() >= minWordLen) { // checks this legnth to prevent unnecessary dictionary lookups, improving speed
         if (gameDict->isValid(currWord) && wordChecker.find(currWord) == wordChecker.end()) {
                 // total number of words found
                 numAnswers++;
@@ -128,6 +135,7 @@ void BoggleGame::solveRec(Word* thisWordPath, ssize_t row, ssize_t col) {
                 wordChecker.insert({currWord, true});
         }
     }
+    // this checks every tile in the 3x3 grid around it for a potential new Word path.
     for (ssize_t r = -1; r <= 1; r++) {
         for (ssize_t c = -1; c <= 1; c++) {
             Tile* nextTile = gameBoard->getTile(row + r, col + c);
@@ -137,16 +145,17 @@ void BoggleGame::solveRec(Word* thisWordPath, ssize_t row, ssize_t col) {
         }
     }
     /* 
-        Once the current path is done, it will back recurse to start the new one. 
-        This effectively clears the path from back to front so a new one can start
+        At this point, all possible paths have been considered and the path needs to be cleared
+        this will set every tile back to unvisited and effectively clear the path for the next
+        tile to start
     */
     thisWordPath->removeLast();
     currTile->setVisited(false);
 }
 
 /*
- * This will be the method that plays it on the BoggleSolving Device. This takes the pathsFile
- * and will be read by the device to play the game.
+ * This will be the method that tells the physical device to start solving the game. It will be
+ * written once the device is built and its design characteristics are understood
  */
 void BoggleGame::play() {
 

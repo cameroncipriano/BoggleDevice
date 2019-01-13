@@ -1,14 +1,8 @@
 /* 
  * Author: Cameron Cipriano
- * Date: 12/28/2018
+ * Date: 1/12/2019
  * Description:
- *      This is a Boggle Solver, the game to find words hidden within an 4 x 4 grid
- *      of randomized letters. This Boggle Solver is different from the rest of them
- *      because it not only finds the words digitally, but it also outputs directions
- *      for a device to play the game from it. The Tiles that constitute the board
- *      are special in that they have location data which translates into paths when
- *      Words are found. The words extract their paths into a PathList, which is
- *      ultimately used as the list of instructions to play the game.
+ *      Testing purposes
  *
  */
 
@@ -18,8 +12,6 @@
 #include <cstdlib>
 #include <string>
 #include <vector>
-
-// My headers
 #include "../headers/Tile.h"
 #include "../headers/Board.h"
 #include "../headers/Word.h"

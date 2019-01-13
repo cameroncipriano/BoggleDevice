@@ -1,8 +1,11 @@
 /* 
  * Author: Cameron Cipriano
- * Date: 12/28/2018
+ * Date: 1/12/2019
  * Description:
- *      
+ *      Word is the class and medium through which the main algorithm operates. The Word
+ *      holds each Tile that represents the text, as well as the path associated with
+ *      recreating the text word. The main program uses the Word to build a path, copying
+ *      it once a valid word has been found.
  *
  */
 
@@ -12,8 +15,6 @@
 #include <string>
 #include <vector>
 #include <iostream>
-
-// My headers
 #include "Tile.h"
 
 using namespace std;
@@ -36,7 +37,6 @@ class Word {
         string getText() const;
         Word::Path* extractPath() const;
         size_t length() const;
-        vector<Tile*> getTiles();
         void printPath(ostream &out);
         void addTile(Tile* tileToAdd);
         void removeLast();
